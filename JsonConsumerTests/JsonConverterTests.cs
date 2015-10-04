@@ -1,6 +1,5 @@
-﻿using System;
+﻿using JsonConsumer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using JsonConsumer;
 using System.IO;
 using System.Runtime.Serialization;
 
@@ -10,7 +9,7 @@ namespace JsonConsumerTests
     public class JsonConverterTests
     {
         private JsonExamples examples { get; set; }
-        
+
         public JsonConverterTests()
         {
             examples = new JsonExamples();
@@ -19,11 +18,11 @@ namespace JsonConsumerTests
         [TestMethod]
         public void TryConvertingFromJsonToSimpleObject()
         {
-            using (Stream stream = examples.ObjectWithName())
+            using (Stream stream = examples.JsonStream())
             {
                 JsonConverter<ObjectWithName> converter = new JsonConverter<ObjectWithName>();
                 ObjectWithName objectPopulated = converter.ConvertFrom(stream);
-                Assert.IsTrue(objectPopulated.Name == "JsonConsumer");
+                Assert.IsTrue(objectPopulated.Name == Constants.MockObjectValue);
             }
         }
 
@@ -34,7 +33,7 @@ namespace JsonConsumerTests
             JsonConverter<ObjectWithName> converter = new JsonConverter<ObjectWithName>();
             ObjectWithName objectExpected = converter.ConvertFrom(null);
             Assert.IsTrue(objectExpected.Name == new ObjectWithName().Name);
-           
+
         }
 
         [TestMethod]
@@ -57,6 +56,6 @@ namespace JsonConsumerTests
                 ObjectWithName objectExpected = converter.ConvertFrom(stream);
                 Assert.IsTrue(objectExpected.Name == new ObjectWithName().Name);
             }
-        }       
+        }
     }
 }

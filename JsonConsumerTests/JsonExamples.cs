@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace JsonConsumerTests
 {
     public class JsonExamples
     {
-        public Stream ObjectWithName()
+        public Stream JsonStream()
         {
             StringBuilder objectJson = new StringBuilder();
             objectJson.AppendLine("{");
-            objectJson.AppendLine("\"Name\": \"JsonConsumer\"");
+            objectJson.AppendLine(string.Format("\"Name\": \"{0}\"", Constants.MockObjectValue));
             objectJson.AppendLine("}");
 
             return StreamFromStringBuilder(objectJson);
@@ -43,11 +39,5 @@ namespace JsonConsumerTests
             stream.Position = 0;
             return stream;
         }
-    }
-
-
-    public class ObjectWithName
-    {
-        public string Name { get; set; }               
     }
 }
